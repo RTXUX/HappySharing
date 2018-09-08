@@ -25,7 +25,6 @@ import xyz.rtxux.HappySharing.Util.Mapper.MyMapper;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController
@@ -83,7 +82,7 @@ public class ItemController {
         if (!itemOpt.isPresent()) throw new ResourceNotFoundException("Item", "ID", id.toString());
         var item = itemOpt.get();
         var itemJsonBuilder = MyMapper.itemJsonFromItem(item).images(item.getImages().stream().map(ImageInfo::getId).collect(Collectors.toList()));
-        if (userPrincipal.getId().equals(item.getOwner().getId())) {
+        if (userPrincipal != null && userPrincipal.getId().equals(item.getOwner().getId())) {
             itemJsonBuilder = itemJsonBuilder.borrower_id(item.getBorrower()!=null?item.getBorrower().getId():null);
         }
 

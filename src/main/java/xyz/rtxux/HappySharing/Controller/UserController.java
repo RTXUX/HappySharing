@@ -85,7 +85,7 @@ public class UserController {
                 .others(null)
                 .phone(userProfileJson.getPhone())
                 .build();
-        var userProfOpt = userProfileRepository.findByUser(user);
+        //var userProfOpt = userProfileRepository.findByUser(user);
         /*if (userProfOpt.isPresent()) {
             userProfile.setId(userProfOpt.get().getId());
         }*/
