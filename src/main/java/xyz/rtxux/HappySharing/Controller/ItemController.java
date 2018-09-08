@@ -239,7 +239,16 @@ public class ItemController {
     }
 
 
-
+    @GetMapping(value = "", params = {"random"})
+    @Transactional
+    public List<ItemJson> getRandomItem(@RequestParam Long random) {
+        List<Item> randomItems = itemRepository.findRandomItems(random);
+        return randomItems.stream().map(item ->
+                MyMapper.itemJsonFromItem(item)
+                        .images(item.getImages().stream().map(ImageInfo::getId).collect(Collectors.toList()))
+                        .build())
+                .collect(Collectors.toList());
+    }
 
 
 }
